@@ -1,0 +1,61 @@
+---
+version: 2
+deployment:
+  name: deployment
+  source-plan: PROJ-PLAN
+release-naming:
+  next-version-name: release-1
+  applies-to-branches: false
+  auto-increment: true
+  auto-increment-variables: []
+environments:
+- environment
+environment:
+  triggers: []
+  tasks:
+  - clean
+  - artifact-download:
+      artifacts:
+      - {}
+      description: Download release contents
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "something"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []
+---
+version: 2
+deployment:
+  name: deployment
+deployment-permissions:
+- users:
+  - admin
+  groups:
+  - bamboo-admin
+  permissions:
+  - view
+  - edit
+  - clone
+  - admin
+  - view-configuration
+  - approve-release
+  - create-release
+- roles:
+  - logged-in
+  permissions:
+  - view
+  - view-configuration
+  - create-release
+environment-permissions:
+- environment:
+  - users:
+    - admin
+    permissions:
+    - view
+    - edit
+    - deploy
+    - view-configuration
+...
